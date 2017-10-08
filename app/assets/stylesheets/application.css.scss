@@ -1,0 +1,89 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+ // Bootstrap Sass
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* 共通レイアウト ================================ */
+body {
+  margin: 0;
+  min-height: 1vh;
+}
+
+.main {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+}
+
+.centering {
+  max-width: 600px;
+  margin: 60px auto;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  clear: both;
+}
+
+.centering  h1, h2, h3, p{
+  text-align: center;
+}
+
+/* users/new ================================ */
+.user-form-box{
+  max-width: 480px;
+  min-width: 240px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 50px auto 15px;
+  padding: 10px 10px 0;
+}
+
+.user-form-box h3{
+  font-size: 20px;
+}
+
+.btn-block {
+  width: 160px;
+  margin: 30px auto;
+}
+
+.btn-block2{
+  display: block;
+  width: 100%;
+}
+
+.btn-change-form {
+  max-width: 480px;
+  min-width: 240px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* フラッシュ ================================ */
+.flash {
+  padding: 10px 0;
+  color: white;
+  background:	#000080;
+  text-align: center;
+  position: absolute;
+  top: 50px;
+  z-index: 10;
+  width: 100%;
+  border-radius: 0 0 2px 2px;
+  font-size: 14px;
+}

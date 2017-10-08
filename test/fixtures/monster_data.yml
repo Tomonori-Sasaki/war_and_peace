@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type: 
+  hp: 1
+  attack: 1
+  defence: 1
+  speed: 1
+  hp_add: 1
+  attack_add: 1
+  defence_add: 1
+  speed_add: 1
+  level: 1
+  exp: 1
+  tech1: 1
+  tech2: 1
+  tech3: 1
+  tech4: 1
+  region_id: 1
+  image_name: MyString
+
+two:
+  name: MyString
+  type: 
+  hp: 1
+  attack: 1
+  defence: 1
+  speed: 1
+  hp_add: 1
+  attack_add: 1
+  defence_add: 1
+  speed_add: 1
+  level: 1
+  exp: 1
+  tech1: 1
+  tech2: 1
+  tech3: 1
+  tech4: 1
+  region_id: 1
+  image_name: MyString

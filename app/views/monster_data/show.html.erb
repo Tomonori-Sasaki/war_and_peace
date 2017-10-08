@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @monster_datum.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @monster_datum.type %>
+</p>
+
+<p>
+  <strong>Hp:</strong>
+  <%= @monster_datum.hp %>
+</p>
+
+<p>
+  <strong>Attack:</strong>
+  <%= @monster_datum.attack %>
+</p>
+
+<p>
+  <strong>Defence:</strong>
+  <%= @monster_datum.defence %>
+</p>
+
+<p>
+  <strong>Speed:</strong>
+  <%= @monster_datum.speed %>
+</p>
+
+<p>
+  <strong>Hp add:</strong>
+  <%= @monster_datum.hp_add %>
+</p>
+
+<p>
+  <strong>Attack add:</strong>
+  <%= @monster_datum.attack_add %>
+</p>
+
+<p>
+  <strong>Defence add:</strong>
+  <%= @monster_datum.defence_add %>
+</p>
+
+<p>
+  <strong>Speed add:</strong>
+  <%= @monster_datum.speed_add %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @monster_datum.level %>
+</p>
+
+<p>
+  <strong>Exp:</strong>
+  <%= @monster_datum.exp %>
+</p>
+
+<p>
+  <strong>Tech1:</strong>
+  <%= @monster_datum.tech1 %>
+</p>
+
+<p>
+  <strong>Tech2:</strong>
+  <%= @monster_datum.tech2 %>
+</p>
+
+<p>
+  <strong>Tech3:</strong>
+  <%= @monster_datum.tech3 %>
+</p>
+
+<p>
+  <strong>Tech4:</strong>
+  <%= @monster_datum.tech4 %>
+</p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @monster_datum.region_id %>
+</p>
+
+<p>
+  <strong>Image name:</strong>
+  <%= @monster_datum.image_name %>
+</p>
+
+<%= link_to 'Edit', edit_monster_datum_path(@monster_datum) %> |
+<%= link_to 'Back', monster_data_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  password_digest: MyString
+  image_name: MyString
+  ball_num: 1
+  level: 1
+  exp: 1
+
+two:
+  name: MyString
+  email: MyString
+  password_digest: MyString
+  image_name: MyString
+  ball_num: 1
+  level: 1
+  exp: 1

@@ -1,0 +1,2 @@
+class MonsterDatum < ApplicationRecord
+end

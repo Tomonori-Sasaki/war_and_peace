@@ -1,0 +1,34 @@
+<div class="main">
+  <div class="centering">
+    <!-- タブ・メニュー -->
+    <ul class="nav nav-tabs">
+    	<li class="active"><a href="#sampleContentA" data-toggle="tab">ずかん</a></li>
+    	<li><a href="#sampleContentB" data-toggle="tab">モンスター</a></li>
+    	<li><a href="#sampleContentC" data-toggle="tab">リュック</a></li>
+    	<li><a href="#sampleContentD" data-toggle="tab">かいふく</a></li>
+      <li><a href="#sampleContentE" data-toggle="tab"><%= @current_user.name %></a></li>
+    </ul>
+
+    <!-- タブ内容 -->
+    <div class="tab-content">
+    	<div class="tab-pane active" id="sampleContentA">
+    		<p>タブＡの内容</p>
+    	</div>
+    	<div class="tab-pane" id="sampleContentB">
+    		<p>タブＢの内容</p>
+    	</div>
+    	<div class="tab-pane" id="sampleContentC">
+    		<p>タブＣの内容</p>
+    	</div>
+    	<div class="tab-pane" id="sampleContentD">
+    		<p>タブＤの内容</p>
+    	</div>
+      <div class="tab-pane" id="sampleContentE">
+        <p><%= @current_user.id %></p>
+    		<p><%= @current_user.name %></p>
+        <p><%= @current_user.email %></p>
+        <p><%= @current_user.password %></p>
+    	</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="main">
+  <div class="user-form-box">
+    <h2>Sign Up</h2>
+
+    <%= form_for @user do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+          <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="form-group">
+          <label>name(maximum is 5 characters)</label>
+          <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+          <label>gender</label>
+          <%= f.select :image_name, {"man" => "man.png", "woman" => "woman.png"}, {}, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+          <label>email</label>
+          <%= f.email_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+          <label>password</label>
+          <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <%= f.submit "Sign Up", class: "btn btn-default btn-block", style: "width: 160px;" %>
+    <% end %>
+
+  </div>
+
+  <%= link_to 'Log In', users_loginform_path, class: "btn btn-default btn-block2 btn-change-form"%>
+
+</div>

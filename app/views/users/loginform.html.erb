@@ -1,0 +1,27 @@
+<div class="main">
+  <div class="user-form-box">
+    <h2>Log In</h2>
+    <%= form_for :user, :url => {:action => 'login'} do |f| %>
+
+      <% if @error_message %>
+        <div id="error_explanation" class="alert alert-danger">
+          <p><%= @error_message %></p>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+          <label>email</label>
+          <%= f.email_field :email, class: "form-control", value: @email %>
+      </div>
+      <div class="form-group">
+          <label>password</label>
+          <%= f.password_field :password, class: "form-control", value: @password %>
+      </div>
+      <%= f.submit "Log In", class: "btn btn-default btn-block", style: "width: 160px;" %>
+    <% end %>
+
+  </div>
+
+  <%= link_to 'Sign Up', new_user_path, class: "btn btn-default btn-block2 btn-change-form"%>
+
+</div>

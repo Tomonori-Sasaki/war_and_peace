@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Monster Data</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Hp</th>
+      <th>Attack</th>
+      <th>Defence</th>
+      <th>Speed</th>
+      <th>Hp add</th>
+      <th>Attack add</th>
+      <th>Defence add</th>
+      <th>Speed add</th>
+      <th>Level</th>
+      <th>Exp</th>
+      <th>Tech1</th>
+      <th>Tech2</th>
+      <th>Tech3</th>
+      <th>Tech4</th>
+      <th>Region</th>
+      <th>Image name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @monster_data.each do |monster_datum| %>
+      <tr>
+        <td><%= monster_datum.name %></td>
+        <td><%= monster_datum.type %></td>
+        <td><%= monster_datum.hp %></td>
+        <td><%= monster_datum.attack %></td>
+        <td><%= monster_datum.defence %></td>
+        <td><%= monster_datum.speed %></td>
+        <td><%= monster_datum.hp_add %></td>
+        <td><%= monster_datum.attack_add %></td>
+        <td><%= monster_datum.defence_add %></td>
+        <td><%= monster_datum.speed_add %></td>
+        <td><%= monster_datum.level %></td>
+        <td><%= monster_datum.exp %></td>
+        <td><%= monster_datum.tech1 %></td>
+        <td><%= monster_datum.tech2 %></td>
+        <td><%= monster_datum.tech3 %></td>
+        <td><%= monster_datum.tech4 %></td>
+        <td><%= monster_datum.region_id %></td>
+        <td><%= monster_datum.image_name %></td>
+        <td><%= link_to 'Show', monster_datum %></td>
+        <td><%= link_to 'Edit', edit_monster_datum_path(monster_datum) %></td>
+        <td><%= link_to 'Destroy', monster_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Monster Datum', new_monster_datum_path %>
