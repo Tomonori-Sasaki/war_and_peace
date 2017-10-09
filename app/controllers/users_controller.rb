@@ -50,6 +50,8 @@ class UsersController < ApplicationController
   end
 
   def mypage
+    # ずかん
+    @monster_data = MonsterDatum.all
   end
 
   def practice

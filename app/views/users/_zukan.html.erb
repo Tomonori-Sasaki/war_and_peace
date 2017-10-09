@@ -1,0 +1,15 @@
+<% @monster_data.each do |monster_data| %>
+  <div class="posts-index-item">
+    <div class="post-left">
+      <%= image_tag(monster_data.image_name) %>
+    </div>
+    <div class="post-right">
+      <div class="post-user-name">
+        <%= monster_data.id %>  <%= link_to(monster_data.name, "") %>  <%= monster_data.type %>
+      </div>
+    </div>
+    <div class="monster-ball-icon">
+      <%= image_tag('monster_ball.png') %>
+    </div>
+  </div>
+<% end %>

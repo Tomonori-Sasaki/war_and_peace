@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007130745) do
+ActiveRecord::Schema.define(version: 20171009102806) do
 
   create_table "monster_data", force: :cascade do |t|
     t.string "name"
@@ -53,10 +53,13 @@ ActiveRecord::Schema.define(version: 20171007130745) do
     t.integer "tech4"
     t.string "type"
     t.integer "user_id"
-    t.integer "monster_id"
     t.integer "have_flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "having_flag"
+    t.integer "had_flag"
+    t.integer "seen_flag"
+    t.integer "monster_data_id"
   end
 
   create_table "monsters", force: :cascade do |t|
