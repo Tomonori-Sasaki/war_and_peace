@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   def mypage
     # ずかん
-    @monster_data = MonsterDatum.all
+    @zukan = MonsterDatum.all
   end
 
   def practice

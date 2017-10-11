@@ -15,19 +15,16 @@
         <%= render 'zukan' %>
     	</div>
     	<div class="tab-pane" id="sampleContentB">
-    		<p>タブＢの内容</p>
+    		<%= render 'monster' %>
     	</div>
     	<div class="tab-pane" id="sampleContentC">
-    		<p>タブＣの内容</p>
+    		<%= render 'rucksack' %>
     	</div>
     	<div class="tab-pane" id="sampleContentD">
-    		<p>タブＤの内容</p>
+    		<%= render 'recovery' %>
     	</div>
       <div class="tab-pane" id="sampleContentE">
-        <p><%= @current_user.id %></p>
-    		<p><%= @current_user.name %></p>
-        <p><%= @current_user.email %></p>
-        <p><%= @current_user.password %></p>
+        <%= render 'userdetails' %>
     	</div>
     </div>
   </div>
