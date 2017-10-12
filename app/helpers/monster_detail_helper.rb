@@ -1,0 +1,2 @@
+module MonsterDetailHelper
+end

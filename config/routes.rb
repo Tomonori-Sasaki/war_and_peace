@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'users/loginform'
 
   post 'users/login'
@@ -17,7 +18,11 @@ Rails.application.routes.draw do
 
   get '/' => 'homes#top'
 
+  resources :users do
+    member do
+      resources :monster_detail
+    end
+  end
   resources :monster_data
-  resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

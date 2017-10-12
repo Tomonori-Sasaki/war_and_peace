@@ -1,107 +1,110 @@
-<%= form_with(model: monster_datum, local: true) do |form| %>
-  <% if monster_datum.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(monster_datum.errors.count, "error") %> prohibited this monster_datum from being saved:</h2>
+<div class="user-form-box">
+  <%= form_with(model: monster_datum, local: true) do |form| %>
+    <% if monster_datum.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(monster_datum.errors.count, "error") %> prohibited this monster_datum from being saved:</h2>
 
-      <ul>
-      <% monster_datum.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% monster_datum.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :monster_datum_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :type %>
+      <%= form.text_field :type, id: :monster_datum_type, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :hp %>
+      <%= form.number_field :hp, id: :monster_datum_hp, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :attack %>
+      <%= form.number_field :attack, id: :monster_datum_attack, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :defence %>
+      <%= form.number_field :defence, id: :monster_datum_defence, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :speed %>
+      <%= form.number_field :speed, id: :monster_datum_speed, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :hp_add %>
+      <%= form.number_field :hp_add, id: :monster_datum_hp_add, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :attack_add %>
+      <%= form.number_field :attack_add, id: :monster_datum_attack_add, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :defence_add %>
+      <%= form.number_field :defence_add, id: :monster_datum_defence_add, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :speed_add %>
+      <%= form.number_field :speed_add, id: :monster_datum_speed_add, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :level %>
+      <%= form.number_field :level, id: :monster_datum_level, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :exp %>
+      <%= form.number_field :exp, id: :monster_datum_exp, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :tech1 %>
+      <%= form.number_field :tech1, id: :monster_datum_tech1, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :tech2 %>
+      <%= form.number_field :tech2, id: :monster_datum_tech2, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :tech3 %>
+      <%= form.number_field :tech3, id: :monster_datum_tech3, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :tech4 %>
+      <%= form.number_field :tech4, id: :monster_datum_tech4, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :region_id %>
+      <%= form.number_field :region_id, id: :monster_datum_region_id, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :image_name %>
+      <%= form.text_field :image_name, id: :monster_datum_image_name, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :monster_datum_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :type %>
-    <%= form.text_field :type, id: :monster_datum_type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :hp %>
-    <%= form.number_field :hp, id: :monster_datum_hp %>
-  </div>
-
-  <div class="field">
-    <%= form.label :attack %>
-    <%= form.number_field :attack, id: :monster_datum_attack %>
-  </div>
-
-  <div class="field">
-    <%= form.label :defence %>
-    <%= form.number_field :defence, id: :monster_datum_defence %>
-  </div>
-
-  <div class="field">
-    <%= form.label :speed %>
-    <%= form.number_field :speed, id: :monster_datum_speed %>
-  </div>
-
-  <div class="field">
-    <%= form.label :hp_add %>
-    <%= form.number_field :hp_add, id: :monster_datum_hp_add %>
-  </div>
-
-  <div class="field">
-    <%= form.label :attack_add %>
-    <%= form.number_field :attack_add, id: :monster_datum_attack_add %>
-  </div>
-
-  <div class="field">
-    <%= form.label :defence_add %>
-    <%= form.number_field :defence_add, id: :monster_datum_defence_add %>
-  </div>
-
-  <div class="field">
-    <%= form.label :speed_add %>
-    <%= form.number_field :speed_add, id: :monster_datum_speed_add %>
-  </div>
-
-  <div class="field">
-    <%= form.label :level %>
-    <%= form.number_field :level, id: :monster_datum_level %>
-  </div>
-
-  <div class="field">
-    <%= form.label :exp %>
-    <%= form.number_field :exp, id: :monster_datum_exp %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tech1 %>
-    <%= form.number_field :tech1, id: :monster_datum_tech1 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tech2 %>
-    <%= form.number_field :tech2, id: :monster_datum_tech2 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tech3 %>
-    <%= form.number_field :tech3, id: :monster_datum_tech3 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tech4 %>
-    <%= form.number_field :tech4, id: :monster_datum_tech4 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :region_id %>
-    <%= form.number_field :region_id, id: :monster_datum_region_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :image_name %>
-    <%= form.text_field :image_name, id: :monster_datum_image_name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

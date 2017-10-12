@@ -19,10 +19,10 @@
 				<% if params[:action] == "top" %>
           <li><%= link_to 'Sign Up', new_user_path %></li>
           <li><%= link_to 'Log In', users_loginform_path %></li>
-				<% elsif params[:action] == "new" %>
+				<% elsif params[:controller] == "users" && params[:action] == "new" %>
           <li class="active"><%= link_to 'Sign Up', new_user_path %></li>
           <li><%= link_to 'Log In', users_loginform_path %></li>
-				<% elsif params[:action] == "loginform" %>
+				<% elsif params[:controller] == "users" && params[:action] == "loginform" %>
           <li><%= link_to 'Sign Up', new_user_path %></li>
           <li class="active"><%= link_to 'Log In', users_loginform_path %></li>
         <% elsif params[:action] == "mypage" %>
@@ -55,6 +55,8 @@
           <li><%= link_to 'Boss', users_boss_path %></li>
           <li><%= link_to 'Communication', users_communication_path %></li>
           <li class="active"><%= link_to 'Settings', users_settings_path %></li>
+				<% elsif @current_user.id == 1 %>
+          <li><%= link_to 'MonsterData', monster_data_path %></li>
         <% else %>
           <li><%= link_to 'Mypage', users_mypage_path %></li>
           <li><%= link_to 'Practice', users_practice_path %></li>

@@ -1,5 +1,6 @@
 class MonsterDataController < ApplicationController
   before_action :set_monster_datum, only: [:show, :edit, :update, :destroy]
+  before_action :super_user
 
   # GET /monster_data
   # GET /monster_data.json
@@ -70,5 +71,12 @@ class MonsterDataController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def monster_datum_params
       params.require(:monster_datum).permit(:name, :type, :hp, :attack, :defence, :speed, :hp_add, :attack_add, :defence_add, :speed_add, :level, :exp, :tech1, :tech2, :tech3, :tech4, :region_id, :image_name)
+    end
+
+    def super_user
+      if @current_user.id != 1
+        flash[:notice] = "あなたはこのページを閲覧することは出来ません"
+        redirect_to(users_mypage_path)
+      end
     end
 end
