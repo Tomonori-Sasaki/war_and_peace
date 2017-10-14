@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, {only: [:show, :logout, :mypage, :practice, :boss, :communication, :settings]}
+  before_action :level_judge, only: :mypage
 
   def new
     @user = User.new
@@ -17,6 +18,14 @@ class UsersController < ApplicationController
   end
 
   def show
+  end
+
+  def update
+    if params[:user][:ball_num]
+      @current_user.ball_num += params[:user][:ball_num].to_i
+      @current_user.save
+      redirect_to(users_mypage_path)
+    end
   end
 
   def loginform
@@ -52,6 +61,7 @@ class UsersController < ApplicationController
   def mypage
     # ずかん
     @zukan = MonsterDatum.all
+    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC")
   end
 
   def practice
@@ -72,5 +82,26 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :image_name, :password)
   end
 
+  def level_up_exp_array
+    n = 5
+    exp_by_one_array = [5]
+    exp_array = []
+    for i in 1..1000 do
+      n *= 1.1
+      exp_by_one_array << n
+    end
+    for j in 0..1000 do
+      exp_array << exp_by_one_array[0..j].sum
+    end
+    return exp_array
+  end
+
+  def level_judge
+    while @current_user.exp > level_up_exp_array[@current_user.level-1] do
+      @current_user.level += 1
+      flash[:notice] = "#{@current_user.name}のトレーナーレベルがLv.#{@current_user.level}に上がった！"
+    end
+    @current_user.save
+  end
 
 end

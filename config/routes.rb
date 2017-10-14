@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   get '/' => 'homes#top'
 
+  post 'monster_detail/synchronize'
+
+  post 'monster_detail/recovery'
+
   resources :users do
     member do
       resources :monster_detail
