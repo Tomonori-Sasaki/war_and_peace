@@ -1,0 +1,47 @@
+<%= form_with(model: skill_datum, local: true) do |form| %>
+  <% if skill_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(skill_datum.errors.count, "error") %> prohibited this skill_datum from being saved:</h2>
+
+      <ul>
+      <% skill_datum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :skill_datum_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pp %>
+    <%= form.number_field :pp, id: :skill_datum_pp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :power %>
+    <%= form.number_field :power, id: :skill_datum_power %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accuracy %>
+    <%= form.number_field :accuracy, id: :skill_datum_accuracy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type, id: :skill_datum_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :examination %>
+    <%= form.text_area :examination, id: :skill_datum_examination %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

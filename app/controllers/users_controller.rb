@@ -8,6 +8,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.ball_num = 5
+    @user.level = 1
+    @user.exp = 0
+    @user.gold = 2000
+    @user.last_login_at = Time.now
+    @user.last_event_at = Date.today - 1
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
@@ -36,6 +42,8 @@ class UsersController < ApplicationController
     if @user
       if @user.password == params[:user][:password]
         session[:user_id] = @user.id
+        @user.last_login_at = Time.now
+        @user.save
         flash[:notice] = "ログインしました"
         redirect_to(users_mypage_path)
       else
@@ -62,9 +70,44 @@ class UsersController < ApplicationController
     # ずかん
     @zukan = MonsterDatum.all
     @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC")
+    if @current_user.level > 1
+      @before_level_exp_sum = level_up_exp_array[@current_user.level-2].to_i
+    else
+      @before_level_exp_sum = 0
+    end
+    @next_level_exp = exp_by_one_array[@current_user.level-1].to_i
+    @how_many_monsters = MonsterDetail.where(user_id: @current_user.id, had_flag: 1).pluck(:monster_datum_id).uniq.count
   end
 
   def practice
+    @take_3_monsters_at_random_level_adjusted = []
+    MonsterDatum.order("RANDOM()").limit(3).each do |monster|
+      if @current_user.level-3 > 1
+        monster.level = rand(@current_user.level-3..@current_user.level+3)
+      else
+        monster.level = rand(1..@current_user.level+3)
+      end
+      monster.hp += monster.hp_add*(monster.level-1)
+      monster.attack += monster.attack_add*(monster.level-1)
+      monster.defence += monster.defence_add*(monster.level-1)
+      monster.speed += monster.speed_add*(monster.level-1)
+      if monster.level > 1
+        monster.exp = level_up_exp_array[monster.level-2].to_i
+      else
+        monster.exp = 0
+      end
+      @take_3_monsters_at_random_level_adjusted << monster
+    end
+
+    if @current_user.last_login_at > Date.today.beginning_of_day && @current_user.last_event_at < Date.today.beginning_of_day
+      @eventmonster = MonsterDatum.order("RANDOM()").limit(1)[0]
+      @eventmonster.level = @current_user.level + 10
+      @eventmonster.hp += @eventmonster.hp_add*(@eventmonster.level-1)
+      @eventmonster.attack += @eventmonster.attack_add*(@eventmonster.level-1)
+      @eventmonster.defence += @eventmonster.defence_add*(@eventmonster.level-1)
+      @eventmonster.speed += @eventmonster.speed_add*(@eventmonster.level-1)
+      @eventmonster.exp = level_up_exp_array[@eventmonster.level-2].to_i
+    end
   end
 
   def boss
@@ -82,14 +125,18 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :image_name, :password)
   end
 
-  def level_up_exp_array
+  def exp_by_one_array
     n = 5
-    exp_by_one_array = [5]
-    exp_array = []
+    array = [5]
     for i in 1..1000 do
       n *= 1.1
-      exp_by_one_array << n
+      array << n
     end
+    return array
+  end
+
+  def level_up_exp_array
+    exp_array = []
     for j in 0..1000 do
       exp_array << exp_by_one_array[0..j].sum
     end

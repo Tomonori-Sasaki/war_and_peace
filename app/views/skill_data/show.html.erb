@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @skill_datum.name %>
+</p>
+
+<p>
+  <strong>Pp:</strong>
+  <%= @skill_datum.pp %>
+</p>
+
+<p>
+  <strong>Power:</strong>
+  <%= @skill_datum.power %>
+</p>
+
+<p>
+  <strong>Accuracy:</strong>
+  <%= @skill_datum.accuracy %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @skill_datum.type %>
+</p>
+
+<p>
+  <strong>Examination:</strong>
+  <%= @skill_datum.examination %>
+</p>
+
+<%= link_to 'Edit', edit_skill_datum_path(@skill_datum) %> |
+<%= link_to 'Back', skill_data_path %>

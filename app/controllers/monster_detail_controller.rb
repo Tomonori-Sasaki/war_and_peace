@@ -48,6 +48,14 @@ class MonsterDetailController < ApplicationController
         had_flag: 1,
         seen_flag: 1)
     end
+
+    MonsterDetail.all.each do |monster_detail|
+      SkillDatum.all.each do |skill_data|
+        SkillDetail.where(monster_detail_id: monster_detail.id, skill_datum_id: skill_data.id).destroy_all
+        SkillDetail.create(monster_detail_id: monster_detail.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
+      end
+    end
+
     redirect_to(users_mypage_path)
   end
 

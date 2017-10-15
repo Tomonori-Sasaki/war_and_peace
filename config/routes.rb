@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :skill_data
   get 'users/loginform'
 
   post 'users/login'

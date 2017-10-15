@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Id</th>
       <th>Name</th>
       <th>Type</th>
       <th>Hp</th>
@@ -30,6 +31,7 @@
   <tbody>
     <% @monster_data.each do |monster_datum| %>
       <tr>
+        <td><%= monster_datum.id %></td>
         <td><%= monster_datum.name %></td>
         <td><%= monster_datum.type %></td>
         <td><%= monster_datum.hp %></td>

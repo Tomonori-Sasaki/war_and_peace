@@ -1,0 +1,44 @@
+<% @take_3_monsters_at_random_level_adjusted.each do |monster_data| %>
+  <%= link_to(monster_datum_path(monster_data.id), :data => {:confirm => "#{monster_data.name}とバトルしますか？"}) do %>
+    <div class="posts-index-item">
+      <div class="monster-ball-icon-for-monster">
+        <% if monster_data.monster_detail[0].had_flag == 1 %>
+          <%= image_tag('standard_ball.png') %>
+        <% else %>
+          <p>  </p>
+        <% end %>
+      </div>
+      <div class="monster-detail-right">
+        <div class="level-name" style="width: 80%;">
+          <div class="monster-detail-level">
+            Lv.<%= monster_data.level %>
+          </div>
+          <div class="monster-detail-name">
+            <%= monster_data.name %>
+          </div>
+        </div>
+        <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+          <div class="progress">
+          	<div class="progress-bar" role="progressbar" style="width: 100%;">
+          	</div>
+          </div>
+          <p>HP: <%= monster_data.hp %>/<%= monster_data.hp %></p>
+        </div>
+      </div>
+      <div class="post-left-for-monster">
+        <%= image_tag(monster_data.image_name) %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+
+<script type="text/javascript">
+  $('.posts-index-item').css('background', '#FFFFFF');
+  $('.posts-index-item').hover(function(){
+    $(this).css('background', '#F5F5F5');
+  }, function(){
+    $(this).css('background', '');
+  });
+</script>

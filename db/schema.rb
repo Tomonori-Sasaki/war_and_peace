@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014102306) do
+ActiveRecord::Schema.define(version: 20171015125139) do
 
   create_table "monster_data", force: :cascade do |t|
     t.string "name"
@@ -84,11 +84,31 @@ ActiveRecord::Schema.define(version: 20171014102306) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "teches", force: :cascade do |t|
+  create_table "skill_data", force: :cascade do |t|
+    t.string "name"
+    t.integer "pp"
+    t.integer "power"
+    t.integer "accuracy"
+    t.string "type"
+    t.text "examination"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "skill_details", force: :cascade do |t|
+    t.integer "monster_detail_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "skill_datum_id"
+    t.integer "pp_left"
+  end
+
+  create_table "skills", force: :cascade do |t|
     t.string "name"
     t.integer "pp"
     t.integer "power"
     t.string "type"
+    t.text "examination"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -104,6 +124,8 @@ ActiveRecord::Schema.define(version: 20171014102306) do
     t.datetime "updated_at", null: false
     t.string "password"
     t.integer "gold"
+    t.datetime "last_login_at"
+    t.datetime "last_event_at"
   end
 
 end

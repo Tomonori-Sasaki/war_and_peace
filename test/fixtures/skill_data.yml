@@ -4,10 +4,14 @@ one:
   name: MyString
   pp: 1
   power: 1
+  accuracy: 1
   type: 
+  examination: MyText
 
 two:
   name: MyString
   pp: 1
   power: 1
+  accuracy: 1
   type: 
+  examination: MyText

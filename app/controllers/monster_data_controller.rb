@@ -73,10 +73,5 @@ class MonsterDataController < ApplicationController
       params.require(:monster_datum).permit(:name, :type, :hp, :attack, :defence, :speed, :hp_add, :attack_add, :defence_add, :speed_add, :level, :exp, :tech1, :tech2, :tech3, :tech4, :region_id, :image_name)
     end
 
-    def super_user
-      if @current_user.id != 1
-        flash[:notice] = "あなたはこのページを閲覧することは出来ません"
-        redirect_to(users_mypage_path)
-      end
-    end
+    
 end

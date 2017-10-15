@@ -19,4 +19,11 @@ class ApplicationController < ActionController::Base
       redirect_to(users_mypage_path)
     end
   end
+
+  def super_user
+    if @current_user.id != 1
+      flash[:notice] = "あなたはこのページを閲覧することは出来ません"
+      redirect_to(users_mypage_path)
+    end
+  end
 end
