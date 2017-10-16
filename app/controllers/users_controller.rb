@@ -80,6 +80,7 @@ class UsersController < ApplicationController
   end
 
   def practice
+    @my_first_monster = @current_user.monster_detail.where(having_flag: 1).order("updated_at DESC").first
     @take_3_monsters_at_random_level_adjusted = []
     MonsterDatum.order("RANDOM()").limit(3).each do |monster|
       if @current_user.level-3 > 1
@@ -96,6 +97,31 @@ class UsersController < ApplicationController
       else
         monster.exp = 0
       end
+      monster = MonsterDetail.create(
+        name: "#{monster.name}",
+        hp_left: monster.hp,
+        hp: monster.hp,
+        attack: monster.attack,
+        defence: monster.defence,
+        speed: monster.speed,
+        hp_add: monster.hp_add,
+        attack_add: monster.attack_add,
+        defence_add: monster.defence_add,
+        speed_add: monster.speed_add,
+        level: monster.level,
+        exp: monster.exp,
+        type: "#{monster.type}",
+        user_id: 4,
+        monster_datum_id: monster.id,
+        having_flag: 1,
+        have_flag: 1,
+        had_flag: 1,
+        seen_flag: 1)
+
+      SkillDatum.order("RANDOM()").limit(3).each do |skill_data|
+        SkillDetail.create(monster_detail_id: MonsterDetail.all.last.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
+      end
+
       @take_3_monsters_at_random_level_adjusted << monster
     end
 
@@ -107,6 +133,30 @@ class UsersController < ApplicationController
       @eventmonster.defence += @eventmonster.defence_add*(@eventmonster.level-1)
       @eventmonster.speed += @eventmonster.speed_add*(@eventmonster.level-1)
       @eventmonster.exp = level_up_exp_array[@eventmonster.level-2].to_i
+      @eventmonster = MonsterDetail.create(
+        name: "#{@eventmonster.name}",
+        hp_left: @eventmonster.hp,
+        hp: @eventmonster.hp,
+        attack: @eventmonster.attack,
+        defence: @eventmonster.defence,
+        speed: @eventmonster.speed,
+        hp_add: @eventmonster.hp_add,
+        attack_add: @eventmonster.attack_add,
+        defence_add: @eventmonster.defence_add,
+        speed_add: @eventmonster.speed_add,
+        level: @eventmonster.level,
+        exp: @eventmonster.exp,
+        type: "#{@eventmonster.type}",
+        user_id: 4,
+        monster_datum_id: @eventmonster.id,
+        having_flag: 1,
+        have_flag: 1,
+        had_flag: 1,
+        seen_flag: 1)
+
+      SkillDatum.order("RANDOM()").limit(3).each do |skill_data|
+        SkillDetail.create(monster_detail_id: MonsterDetail.all.last.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
+      end
     end
   end
 
@@ -150,5 +200,6 @@ class UsersController < ApplicationController
     end
     @current_user.save
   end
+
 
 end

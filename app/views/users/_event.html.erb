@@ -1,8 +1,8 @@
 <% if @eventmonster %>
-  <%= link_to(monster_datum_path(@eventmonster.id), :data => {:confirm => "#{@eventmonster.name}とバトルしますか？"}) do %>
+  <%= link_to(monster_datum_path(@my_first_monster.id, @eventmonster.id), :data => {:confirm => "#{@eventmonster.name}とバトルしますか？"}) do %>
     <div class="posts-index-item">
       <div class="monster-ball-icon-for-monster">
-        <% if @eventmonster.monster_detail[0].had_flag == 1 %>
+        <% if MonsterDetail.where(user_id: @current_user.id, monster_datum_id: @eventmonster.monster_datum.id).pluck(:had_flag).max == 1 %>
           <%= image_tag('standard_ball.png') %>
         <% else %>
           <p>  </p>
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="post-left-for-monster">
-        <%= image_tag(@eventmonster.image_name) %>
+        <%= image_tag(@eventmonster.monster_datum.image_name) %>
       </div>
     </div>
   <% end %>

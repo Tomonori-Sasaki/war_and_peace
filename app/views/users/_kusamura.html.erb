@@ -1,8 +1,8 @@
 <% @take_3_monsters_at_random_level_adjusted.each do |monster_data| %>
-  <%= link_to(monster_datum_path(monster_data.id), :data => {:confirm => "#{monster_data.name}とバトルしますか？"}) do %>
+  <%= link_to(battles_show_path(@my_first_monster.id, monster_data.id), :data => {:confirm => "#{monster_data.name}とバトルしますか？"}) do %>
     <div class="posts-index-item">
       <div class="monster-ball-icon-for-monster">
-        <% if monster_data.monster_detail[0].had_flag == 1 %>
+        <% if MonsterDetail.where(user_id: @current_user.id, monster_datum_id: monster_data.monster_datum.id).pluck(:had_flag).max == 1 %>
           <%= image_tag('standard_ball.png') %>
         <% else %>
           <p>  </p>
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="post-left-for-monster">
-        <%= image_tag(monster_data.image_name) %>
+        <%= image_tag(monster_data.monster_datum.image_name) %>
       </div>
     </div>
   <% end %>

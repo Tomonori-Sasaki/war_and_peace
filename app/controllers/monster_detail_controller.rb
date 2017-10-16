@@ -36,10 +36,6 @@ class MonsterDetailController < ApplicationController
         speed_add: monster_data.speed_add,
         level: monster_data.level,
         exp: monster_data.exp,
-        tech1: monster_data.tech1,
-        tech2: monster_data.tech2,
-        tech3: monster_data.tech3,
-        tech4: monster_data.tech4,
         type: "#{monster_data.type}",
         user_id: 1,
         monster_datum_id: monster_data.id,
@@ -62,6 +58,10 @@ class MonsterDetailController < ApplicationController
   def recovery
     @current_user.monster_detail.each do |monster_detail|
       monster_detail.hp_left = monster_detail.hp
+      monster_detail.skill_detail.each do |skill|
+        skill.pp_left = skill.skill_datum.pp
+        skill.save
+      end
       monster_detail.save
     end
     redirect_to(users_mypage_path)

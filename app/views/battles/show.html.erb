@@ -1,0 +1,14 @@
+<div class="main">
+  <div class="centering">
+    <%= render 'monster_index_item', monster: @opponent_monster %>
+    <div class="battle-effect">
+      <div class="damage-effect">
+        <%= image_tag('damage_effect.png') %>
+        <div class="how-many-damages">
+          <h1>2000</h1>
+        </div>
+      </div>
+    </div>
+    <%= render 'monster_index_item', monster: @my_monster %>
+  </div>
+</div>

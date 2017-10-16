@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'battles/show/:my_id/:opponent_id' => 'battles#show', as: 'battles_show'
+
   resources :skill_data
   get 'users/loginform'
 
