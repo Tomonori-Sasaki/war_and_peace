@@ -1,3 +1,4 @@
+
 <div class="main">
   <div class="centering">
     <%= render 'monster_index_item', monster: @opponent_monster %>
@@ -10,5 +11,24 @@
       </div>
     </div>
     <%= render 'monster_index_item', monster: @my_monster %>
+
+    <ul class="nav nav-tabs" style="margin-top: 50px">
+    	<li class="active"><a href="#sampleContentA" data-toggle="tab">スキル</a></li>
+    	<li><a href="#sampleContentB" data-toggle="tab">モンスター</a></li>
+    	<li><a href="#sampleContentC" data-toggle="tab">リュック</a></li>
+    </ul>
+
+    <!-- タブ内容 -->
+    <div class="tab-content">
+    	<div class="tab-pane active" id="sampleContentA">
+        <%= render 'skill' %>
+    	</div>
+    	<div class="tab-pane" id="sampleContentB">
+    		<%= render 'monster' %>
+    	</div>
+    	<div class="tab-pane" id="sampleContentC">
+    		<%= render 'rucksack' %>
+    	</div>
+    </div>
   </div>
 </div>

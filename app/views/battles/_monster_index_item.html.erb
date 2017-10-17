@@ -17,7 +17,8 @@
     </div>
     <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
       <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 100%;">
+        <% hp_ratio = (monster.hp_left/monster.hp.to_f)*100 %>
+        <div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
         </div>
       </div>
       <p>HP: <%= monster.hp_left %>/<%= monster.hp %></p>

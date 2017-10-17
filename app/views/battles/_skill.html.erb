@@ -1,0 +1,26 @@
+<% @my_monster_skills.each do |skill| %>
+  <%= link_to(battles_skill_update_path(skill.id, params: { my_id: @my_monster.id, opponent_id: @opponent_monster.id }), method: :post) do %>
+    <div class="posts-index-item">
+      <div class="post-right">
+        <div class="post-id">
+          <%= skill.skill_datum.name %>
+        </div>
+        <div class="post-name">
+          <%= skill.skill_datum.type %>
+        </div>
+        <div class="post-type">
+          <%= skill.pp_left %>/<%= skill.skill_datum.pp %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  $('.posts-index-item').css('background', '#FFFFFF');
+  $('.posts-index-item').hover(function(){
+    $(this).css('background', '#F5F5F5');
+  }, function(){
+    $(this).css('background', '');
+  });
+</script>

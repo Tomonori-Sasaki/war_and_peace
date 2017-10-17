@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'battles/skill_update/:id' => 'battles#skill_update', as: 'battles_skill_update'
+
   get 'battles/show/:my_id/:opponent_id' => 'battles#show', as: 'battles_show'
 
   resources :skill_data

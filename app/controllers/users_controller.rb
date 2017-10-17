@@ -119,7 +119,7 @@ class UsersController < ApplicationController
         seen_flag: 1)
 
       SkillDatum.order("RANDOM()").limit(3).each do |skill_data|
-        SkillDetail.create(monster_detail_id: MonsterDetail.all.last.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
+        SkillDetail.create(monster_detail_id: monster.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
       end
 
       @take_3_monsters_at_random_level_adjusted << monster
@@ -155,7 +155,7 @@ class UsersController < ApplicationController
         seen_flag: 1)
 
       SkillDatum.order("RANDOM()").limit(3).each do |skill_data|
-        SkillDetail.create(monster_detail_id: MonsterDetail.all.last.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
+        SkillDetail.create(monster_detail_id: @eventmonster.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
       end
     end
   end

@@ -21,8 +21,8 @@ class MonsterDetailController < ApplicationController
   end
 
   def synchronize
+    MonsterDetail.all.destroy_all
     MonsterDatum.all.each do |monster_data|
-      MonsterDetail.where(monster_datum_id: monster_data.id).destroy_all
       MonsterDetail.create(
         name: "#{monster_data.name}",
         hp_left: monster_data.hp,
@@ -45,9 +45,9 @@ class MonsterDetailController < ApplicationController
         seen_flag: 1)
     end
 
+    SkillDetail.all.destroy_all
     MonsterDetail.all.each do |monster_detail|
       SkillDatum.all.each do |skill_data|
-        SkillDetail.where(monster_detail_id: monster_detail.id, skill_datum_id: skill_data.id).destroy_all
         SkillDetail.create(monster_detail_id: monster_detail.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
       end
     end

@@ -1,5 +1,5 @@
 <% if @eventmonster %>
-  <%= link_to(monster_datum_path(@my_first_monster.id, @eventmonster.id), :data => {:confirm => "#{@eventmonster.name}とバトルしますか？"}) do %>
+  <%= link_to(battles_show_path(@my_first_monster.id, @eventmonster.id), :data => {:confirm => "#{@eventmonster.name}とバトルしますか？"}) do %>
     <div class="posts-index-item">
       <div class="monster-ball-icon-for-monster">
         <% if MonsterDetail.where(user_id: @current_user.id, monster_datum_id: @eventmonster.monster_datum.id).pluck(:had_flag).max == 1 %>
