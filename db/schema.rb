@@ -62,27 +62,6 @@ ActiveRecord::Schema.define(version: 20171009102806) do
     t.integer "monster_data_id"
   end
 
-  create_table "monsters", force: :cascade do |t|
-    t.string "name"
-    t.string "type"
-    t.integer "hp"
-    t.integer "attack"
-    t.integer "defence"
-    t.integer "speed"
-    t.integer "hp_add"
-    t.integer "attack_add"
-    t.integer "defence_add"
-    t.integer "speed_add"
-    t.integer "level"
-    t.integer "exp"
-    t.integer "tech1"
-    t.integer "tech2"
-    t.integer "tech3"
-    t.integer "tech4"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "teches", force: :cascade do |t|
     t.string "name"
     t.integer "pp"
