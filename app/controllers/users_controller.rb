@@ -29,8 +29,8 @@ class UsersController < ApplicationController
   def update
     if params[:user][:ball_num]
       @current_user.ball_num += params[:user][:ball_num].to_i
+      @current_user.gold -= params[:user][:ball_num].to_i * 100
       @current_user.save
-      redirect_to(users_mypage_path)
     end
   end
 

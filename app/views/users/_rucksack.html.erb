@@ -11,10 +11,10 @@
   </div>
   <div class="ruck-right">
     <% @user = @current_user %>
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, data: { remote: true }) do |f| %>
       <div class="form-group">
           <label>いくつ購入しますか?</label>
-          <%= f.number_field :ball_num, class: "form-control", min: 1, max: @current_user.gold/100, style: "width: 120px; margin: auto;" %>
+          <%= f.number_field :ball_num, id: "ball-number-field", class: "form-control", value: 1, min: 1, max: @current_user.gold/100, style: "width: 120px; margin: auto;" %>
       </div>
       <%= f.submit "購入", class: "btn btn-default", style: "width: 50px;" %>
     <% end %>
