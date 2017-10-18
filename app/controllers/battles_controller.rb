@@ -32,8 +32,19 @@ class BattlesController < ApplicationController
     end
 
     how_many_damage = ((my_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * my_monster.attack / opponent_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility
-    opponent_monster.hp_left -= how_many_damage.to_i
+
+    if opponent_monster.hp_left > how_many_damage.to_i
+      opponent_monster.hp_left -= how_many_damage.to_i
+    else
+      opponent_monster.hp_left = 0
+    end
+
     opponent_monster.save
-    redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
+
+    if opponent_monster.hp_left == 0
+      redirect_to(battles_finished_path)
+    else
+      redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
+    end
   end
 end
