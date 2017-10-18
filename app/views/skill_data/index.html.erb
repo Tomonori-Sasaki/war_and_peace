@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Skill Data</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Pp</th>
+      <th>Power</th>
+      <th>Accuracy</th>
+      <th>Type</th>
+      <th>Examination</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @skill_data.each do |skill_datum| %>
+      <tr>
+        <td><%= skill_datum.id %></td>
+        <td><%= skill_datum.name %></td>
+        <td><%= skill_datum.pp %></td>
+        <td><%= skill_datum.power %></td>
+        <td><%= skill_datum.accuracy %></td>
+        <td><%= skill_datum.type %></td>
+        <td><%= skill_datum.examination %></td>
+        <td><%= link_to 'Show', skill_datum %></td>
+        <td><%= link_to 'Edit', edit_skill_datum_path(skill_datum) %></td>
+        <td><%= link_to 'Destroy', skill_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Skill Datum', new_skill_datum_path %>

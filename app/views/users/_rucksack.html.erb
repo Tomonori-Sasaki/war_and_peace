@@ -1,0 +1,22 @@
+
+<h3><%= @current_user.name %>さんの所持金 : <%= @current_user.gold %>G</h3>
+<div class="posts-index-item">
+  <div class="monster-ball-icon-for-ruck">
+    <%= image_tag('standard_ball.png') %>
+  </div>
+  <div class="ruck-left">
+    <p>スタンダードボール × <%= @current_user.ball_num %></p>
+    <br>
+    <p>100G</p>
+  </div>
+  <div class="ruck-right">
+    <% @user = @current_user %>
+    <%= form_for(@user) do |f| %>
+      <div class="form-group">
+          <label>いくつ購入しますか?</label>
+          <%= f.number_field :ball_num, class: "form-control", min: 1, max: @current_user.gold/100, style: "width: 120px; margin: auto;" %>
+      </div>
+      <%= f.submit "購入", class: "btn btn-default", style: "width: 50px;" %>
+    <% end %>
+  </div>
+</div>

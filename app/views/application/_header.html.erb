@@ -57,6 +57,8 @@
           <li class="active"><%= link_to 'Settings', users_settings_path %></li>
 				<% elsif @current_user.id == 1 %>
           <li><%= link_to 'MonsterData', monster_data_path %></li>
+					<li><%= link_to 'SkillData', skill_data_path %></li>
+					<li><%= link_to 'MonsterSynchronize', monster_detail_synchronize_path, method: :post %></li>
         <% else %>
           <li><%= link_to 'Mypage', users_mypage_path %></li>
           <li><%= link_to 'Practice', users_practice_path %></li>

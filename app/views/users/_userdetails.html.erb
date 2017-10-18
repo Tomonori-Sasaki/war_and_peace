@@ -1,4 +1,28 @@
-<p><%= @current_user.id %></p>
-<p><%= @current_user.name %></p>
-<p><%= @current_user.email %></p>
-<p><%= @current_user.password %></p>
+<div class="user-details-name">
+  <h3><%= @current_user.name %></h3>
+</div>
+<div class="user-details-icon">
+  <%= image_tag("#{@current_user.image_name}") %>
+</div>
+<div class="user-details-exp">
+  <p>TOTAL EXP : <%= @current_user.exp %></p>
+</div>
+<div class="user-details-level">
+  <h3>Lv.<%= @current_user.level %></h3>
+</div>
+<div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+  <div class="progress">
+    <% exp_ratio = ((@current_user.exp - @before_level_exp_sum)/@next_level_exp.to_f)*100 %>
+    <div class="progress-bar <%= "progress-bar-warning" if exp_ratio >= 25 && exp_ratio < 50 %> <%= "progress-bar-danger" if exp_ratio < 25 %>" role="progressbar" style="width: <%= exp_ratio %>%;">
+    </div>
+  </div>
+  <p><%= @current_user.exp - @before_level_exp_sum %>/<%= @next_level_exp %> XP</p>
+</div>
+<div class="user-details-gold">
+  <%= image_tag('gold.png') %>
+  <p><%= @current_user.gold %>G</p>
+</div>
+<div class="user-details-how-many-monsters">
+  <%= image_tag('standard_ball.png') %>
+  <p><%= @how_many_monsters %>匹</p>
+</div>

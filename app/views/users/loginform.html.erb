@@ -17,11 +17,11 @@
           <label>password</label>
           <%= f.password_field :password, class: "form-control", value: @password %>
       </div>
-      <%= f.submit "Log In", class: "btn btn-default btn-block", style: "width: 160px;" %>
+      <%= f.submit "Log In", class: "btn btn-default btn-block", style: "width: 160px; margin-bottom: 30px;" %>
     <% end %>
 
   </div>
 
-  <%= link_to 'Sign Up', new_user_path, class: "btn btn-default btn-block2 btn-change-form"%>
+  <%= link_to 'Sign Up', new_user_path, class: "btn btn-default btn-block2 btn-change-form", style: "display: block;"%>
 
 </div>
