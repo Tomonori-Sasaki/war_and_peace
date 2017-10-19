@@ -1,4 +1,6 @@
 class BattlesController < ApplicationController
+  before_action :opponent_monster_skill_update, only: :skill_update
+
   def show
     @my_monster = MonsterDetail.find(params[:my_id].to_i)
     @opponent_monster = MonsterDetail.find(params[:opponent_id].to_i)
@@ -6,28 +8,37 @@ class BattlesController < ApplicationController
   end
 
   def skill_update
-    selected_skill = set_and_reduce_skill(params[:id])
-
     my_monster = MonsterDetail.find(params[:my_id].to_i)
     opponent_monster = MonsterDetail.find(params[:opponent_id].to_i)
 
-    type_matched_factor = set_type_matched_factor(my_monster.type, selected_skill.skill_datum.type)
+    if @random > ((opponent_monster.speed/(opponent_monster.speed + my_monster.speed).to_f)*100).round
+      selected_skill = set_and_reduce_skill(params[:id])
 
-    compatibility = set_compatibility(selected_skill.skill_datum.type, opponent_monster.type)
+      type_matched_factor = set_type_matched_factor(my_monster.type, selected_skill.skill_datum.type)
 
-    how_many_damage = ((my_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * my_monster.attack / opponent_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility
+      compatibility = set_compatibility(selected_skill.skill_datum.type, opponent_monster.type)
 
-    opponent_monster.hp_left = set_hp_left(opponent_monster.hp_left, how_many_damage)
+      how_many_damage = ((my_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * my_monster.attack / opponent_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility
 
-    opponent_monster.save
+      opponent_monster.hp_left = set_hp_left(opponent_monster.hp_left, how_many_damage)
 
-    if opponent_monster.hp_left == 0
-      flash[:notice] = "#{my_monster.name}は#{opponent_monster.name}を倒した！"
-      redirect_to(battles_finished_path)
-    else
-      flash[:notice] = "#{opponent_monster.name}に#{how_many_damage.round}のダメージ！"
-      redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
+      opponent_monster.save
+
+      if opponent_monster.hp_left == 0
+        flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{my_monster.name}は#{opponent_monster.name}を倒した！"
+        redirect_to(battles_finished_path)
+      else
+        flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{opponent_monster.name}に#{how_many_damage.round}のダメージ！"
+        redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
+      end
     end
+
+  end
+
+  def lose
+  end
+
+  def finished
   end
 
   private
@@ -75,27 +86,32 @@ class BattlesController < ApplicationController
   def opponent_monster_skill_update
     my_monster = MonsterDetail.find(params[:my_id].to_i)
     opponent_monster = MonsterDetail.find(params[:opponent_id].to_i)
+    @random = rand(0..100)
 
-    how_many_damage_array = []
+    if @random < ((opponent_monster.speed/(opponent_monster.speed + my_monster.speed).to_f)*100).round
+      how_many_damage_array = []
 
-    opponent_monster.skill_detail.each do |selected_skill|
-      type_matched_factor = set_type_matched_factor(opponent_monster.type, selected_skill.skill_datum.type)
+      opponent_monster.skill_detail.each do |selected_skill|
+        type_matched_factor = set_type_matched_factor(opponent_monster.type, selected_skill.skill_datum.type)
 
-      compatibility = set_compatibility(selected_skill.skill_datum.type, my_monster.type)
+        compatibility = set_compatibility(selected_skill.skill_datum.type, my_monster.type)
 
-      how_many_damage = ((opponent_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * opponent_monster.attack / my_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility
+        how_many_damage = ((opponent_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * opponent_monster.attack / my_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility
 
-      how_many_damage_array << how_many_damage
-    end
+        how_many_damage_array << how_many_damage
+      end
 
-    my_monster.hp_left = set_hp_left(my_monster.hp_left, how_many_damage_array.max)
+      my_monster.hp_left = set_hp_left(my_monster.hp_left, how_many_damage_array.max)
 
-    my_monster.save
+      my_monster.save
 
-    if my_monster.hp_left == 0
-      flash[:notice] = "#{opponent_monster.name}は#{my_monster.name}を倒した！"
-    else
-      flash[:notice] = "#{my_monster.name}に#{how_many_damage_array.max.round}のダメージ！"
+      if my_monster.hp_left == 0
+        flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}!! #{opponent_monster.name}は#{my_monster.name}を倒した！"
+        redirect_to(battles_lose_path)
+      else
+        flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}!! #{my_monster.name}に#{how_many_damage_array.max.round}のダメージ！"
+        redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
+      end
     end
   end
 end
