@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def practice
-    @my_first_monster = @current_user.monster_detail.where(having_flag: 1).order("updated_at DESC").first
+    @my_first_monster = @current_user.monster_detail.where(having_flag: 1).order("updated_at DESC").reject {|monster| monster.hp_left == 0 }.first
     @take_3_monsters_at_random_level_adjusted = []
     MonsterDatum.order("RANDOM()").limit(3).each do |monster|
       if @current_user.level-3 > 1
