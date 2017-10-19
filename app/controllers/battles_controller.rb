@@ -5,6 +5,7 @@ class BattlesController < ApplicationController
     @my_monster = MonsterDetail.find(params[:my_id].to_i)
     @opponent_monster = MonsterDetail.find(params[:opponent_id].to_i)
     @my_monster_skills = @my_monster.skill_detail
+    @my_having_monsters = MonsterDetail.where(user_id: @current_user.id, having_flag: 1).order("created_at DESC").reject {|monster| monster == @my_monster }
   end
 
   def skill_update
@@ -18,7 +19,9 @@ class BattlesController < ApplicationController
 
       compatibility = set_compatibility(selected_skill.skill_datum.type, opponent_monster.type)
 
-      how_many_damage = ((my_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * my_monster.attack / opponent_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility
+      accuracy_factor = set_accuracy_factor(selected_skill)
+
+      how_many_damage = ((my_monster.level * 2 / 5.0 + 2) * selected_skill.skill_datum.power * my_monster.attack / opponent_monster.defence.to_f / 50.0 + 2) * rand(85..100) / 100.0 * type_matched_factor * compatibility * accuracy_factor
 
       opponent_monster.hp_left = set_hp_left(opponent_monster.hp_left, how_many_damage)
 
@@ -28,7 +31,11 @@ class BattlesController < ApplicationController
         flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{my_monster.name}は#{opponent_monster.name}を倒した！"
         redirect_to(battles_finished_path)
       else
-        flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{opponent_monster.name}に#{how_many_damage.round}のダメージ！"
+        if accuracy_factor == 0
+          flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{my_monster.name}の攻撃は外れた！"
+        else
+          flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{opponent_monster.name}に#{how_many_damage.round}のダメージ！"
+        end
         redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
       end
     end
@@ -83,12 +90,20 @@ class BattlesController < ApplicationController
     end
   end
 
+  def set_accuracy_factor(skill)
+    if rand(0..100) <= skill.skill_datum.accuracy
+      accuracy_factor = 1
+    else
+      accuracy_factor = 0
+    end
+  end
+
   def opponent_monster_skill_update
     my_monster = MonsterDetail.find(params[:my_id].to_i)
     opponent_monster = MonsterDetail.find(params[:opponent_id].to_i)
     @random = rand(0..100)
 
-    if @random < ((opponent_monster.speed/(opponent_monster.speed + my_monster.speed).to_f)*100).round
+    if @random <= ((opponent_monster.speed/(opponent_monster.speed + my_monster.speed).to_f)*100).round
       how_many_damage_array = []
 
       opponent_monster.skill_detail.each do |selected_skill|
@@ -101,15 +116,21 @@ class BattlesController < ApplicationController
         how_many_damage_array << how_many_damage
       end
 
-      my_monster.hp_left = set_hp_left(my_monster.hp_left, how_many_damage_array.max)
+      accuracy_factor = set_accuracy_factor(opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)])
+
+      my_monster.hp_left = set_hp_left(my_monster.hp_left, how_many_damage_array.max * accuracy_factor)
 
       my_monster.save
 
       if my_monster.hp_left == 0
-        flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}!! #{opponent_monster.name}は#{my_monster.name}を倒した！"
+        flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}！ #{opponent_monster.name}は#{my_monster.name}を倒した！"
         redirect_to(battles_lose_path)
       else
-        flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}!! #{my_monster.name}に#{how_many_damage_array.max.round}のダメージ！"
+        if accuracy_factor == 0
+          flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}！ #{opponent_monster.name}の攻撃は外れた！"
+        else
+          flash[:notice] = "#{opponent_monster.name}の#{opponent_monster.skill_detail[how_many_damage_array.index(how_many_damage_array.max)].skill_datum.name}！ #{my_monster.name}に#{how_many_damage_array.max.round}のダメージ！"
+        end
         redirect_to(battles_show_path(params[:my_id].to_i, params[:opponent_id].to_i))
       end
     end

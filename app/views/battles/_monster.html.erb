@@ -1,0 +1,41 @@
+<% @my_having_monsters.each do |monster_data| %>
+  <%= link_to(battles_show_path(monster_data.id, @opponent_monster.id), :data => {:confirm => "#{monster_data.name}と入れ替えますか？"}) do %>
+    <div class="posts-index-item">
+      <div class="monster-ball-icon-for-monster">
+        <%= image_tag('standard_ball.png') %>
+      </div>
+      <div class="monster-detail-right">
+        <div class="level-name" style="width: 80%;">
+          <div class="monster-detail-level">
+            Lv.<%= monster_data.level %>
+          </div>
+          <div class="monster-detail-name">
+            <%= monster_data.name %>
+          </div>
+        </div>
+        <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+          <div class="progress">
+            <% hp_ratio = (monster_data.hp_left/monster_data.hp.to_f)*100 %>
+          	<div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
+          	</div>
+          </div>
+          <p>HP: <%= monster_data.hp_left %>/<%= monster_data.hp %></p>
+        </div>
+      </div>
+      <div class="post-left-for-monster">
+        <%= image_tag(monster_data.monster_datum.image_name) %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+
+<script type="text/javascript">
+  $('.posts-index-item').css('background', '#FFFFFF');
+  $('.posts-index-item').hover(function(){
+    $(this).css('background', '#F5F5F5');
+  }, function(){
+    $(this).css('background', '');
+  });
+</script>
