@@ -1,1 +1,11 @@
-バトル終了だよ
+<div class="main">
+  <div class="centering">
+    <% if @my_having_monsters_left == 0 %>
+      <h3><%= @current_user.name %>はバトルに敗北した！</h3>
+      <h3>目の前がまっくらになった...</h3>
+    <% else %>
+      <h3><%= @current_user.name %>はバトルに勝利した！</h3>
+    <% end %>
+    <%= link_to 'Mypage', users_mypage_path, class: "btn btn-default", style: "margin-top: 50px;" %>
+  </div>
+</div>

@@ -69,7 +69,7 @@ class UsersController < ApplicationController
   def mypage
     # ずかん
     @zukan = MonsterDatum.all
-    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("created_at DESC").order("having_flag DESC")
+    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC").order("updated_at DESC")
     if @current_user.level > 1
       @before_level_exp_sum = level_up_exp_array[@current_user.level-2].to_i
     else

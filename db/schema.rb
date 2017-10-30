@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016030736) do
+ActiveRecord::Schema.define(version: 20171023212731) do
 
   create_table "monster_data", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20171016030736) do
     t.string "image_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "capture_coefficient"
   end
 
   create_table "monster_details", force: :cascade do |t|
@@ -59,6 +60,27 @@ ActiveRecord::Schema.define(version: 20171016030736) do
     t.integer "hp_left"
   end
 
+  create_table "monsters", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.integer "hp"
+    t.integer "attack"
+    t.integer "defence"
+    t.integer "speed"
+    t.integer "hp_add"
+    t.integer "attack_add"
+    t.integer "defence_add"
+    t.integer "speed_add"
+    t.integer "level"
+    t.integer "exp"
+    t.integer "tech1"
+    t.integer "tech2"
+    t.integer "tech3"
+    t.integer "tech4"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "skill_data", force: :cascade do |t|
     t.string "name"
     t.integer "pp"
@@ -76,6 +98,16 @@ ActiveRecord::Schema.define(version: 20171016030736) do
     t.datetime "updated_at", null: false
     t.integer "skill_datum_id"
     t.integer "pp_left"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.integer "pp"
+    t.integer "power"
+    t.string "type"
+    t.text "examination"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

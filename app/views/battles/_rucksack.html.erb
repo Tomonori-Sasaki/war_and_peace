@@ -1,0 +1,23 @@
+<%= link_to_if_with_block @current_user.ball_num > 0, battles_get_finished_path(params: { my_id: @my_monster.id, opponent_id: @opponent_monster.id}), method: :post do %>
+  <div class="posts-index-item">
+    <div class="standard-ball-icon">
+      <%= image_tag('standard_ball.png') %>
+    </div>
+    <div class="standard-ball-name">
+      スタンダードボール
+    </div>
+    <div class="standard-ball-num">
+      <%= @current_user.ball_num %>個
+    </div>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $('.posts-index-item').css('background', '#FFFFFF');
+  $('.posts-index-item').hover(function(){
+    $(this).css('background', '#F5F5F5');
+  }, function(){
+    $(this).css('background', '');
+  });
+</script>

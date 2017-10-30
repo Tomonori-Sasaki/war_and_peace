@@ -24,6 +24,7 @@
       <th>Tech4</th>
       <th>Region</th>
       <th>Image name</th>
+      <th>Capture coefficient</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -50,6 +51,7 @@
         <td><%= monster_datum.tech4 %></td>
         <td><%= monster_datum.region_id %></td>
         <td><%= monster_datum.image_name %></td>
+        <td><%= monster_datum.capture_coefficient %></td>
         <td><%= link_to 'Show', monster_datum %></td>
         <td><%= link_to 'Edit', edit_monster_datum_path(monster_datum) %></td>
         <td><%= link_to 'Destroy', monster_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>

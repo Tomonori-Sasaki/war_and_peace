@@ -70,8 +70,8 @@ class MonsterDataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monster_datum_params
-      params.require(:monster_datum).permit(:name, :type, :hp, :attack, :defence, :speed, :hp_add, :attack_add, :defence_add, :speed_add, :level, :exp, :tech1, :tech2, :tech3, :tech4, :region_id, :image_name)
+      params.require(:monster_datum).permit(:name, :type, :hp, :attack, :defence, :speed, :hp_add, :attack_add, :defence_add, :speed_add, :level, :exp, :tech1, :tech2, :tech3, :tech4, :region_id, :image_name, :capture_coefficient)
     end
 
-    
+
 end

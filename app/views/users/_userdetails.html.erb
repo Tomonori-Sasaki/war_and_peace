@@ -13,7 +13,7 @@
 <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
   <div class="progress">
     <% exp_ratio = ((@current_user.exp - @before_level_exp_sum)/@next_level_exp.to_f)*100 %>
-    <div class="progress-bar <%= "progress-bar-warning" if exp_ratio >= 25 && exp_ratio < 50 %> <%= "progress-bar-danger" if exp_ratio < 25 %>" role="progressbar" style="width: <%= exp_ratio %>%;">
+    <div class="progress-bar" role="progressbar" style="width: <%= exp_ratio %>%;">
     </div>
   </div>
   <p><%= @current_user.exp - @before_level_exp_sum %>/<%= @next_level_exp %> XP</p>

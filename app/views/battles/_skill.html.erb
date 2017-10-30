@@ -1,16 +1,37 @@
+<div class="posts-index-item-index">
+  <div class="skill-name">
+    name
+  </div>
+  <div class="skill-type">
+    type
+  </div>
+  <div class="skill-power">
+    power
+  </div>
+  <div class="skill-accuracy">
+    accuracy
+  </div>
+  <div class="skill-pp">
+    pp
+  </div>
+</div>
 <% @my_monster_skills.each do |skill| %>
   <%= link_to_if_with_block skill.pp_left > 0, battles_skill_update_path(skill.id, params: { my_id: @my_monster.id, opponent_id: @opponent_monster.id}), method: :post do %>
     <div class="posts-index-item">
-      <div class="post-right">
-        <div class="post-id">
-          <%= skill.skill_datum.name %>
-        </div>
-        <div class="post-name">
-          <%= skill.skill_datum.type %>
-        </div>
-        <div class="post-type">
-          <%= skill.pp_left %>/<%= skill.skill_datum.pp %>
-        </div>
+      <div class="skill-name">
+        <%= skill.skill_datum.name %>
+      </div>
+      <div class="skill-type">
+        <%= skill.skill_datum.type %>
+      </div>
+      <div class="skill-power">
+        <%= skill.skill_datum.power %>
+      </div>
+      <div class="skill-accuracy">
+        <%= skill.skill_datum.accuracy %>
+      </div>
+      <div class="skill-pp">
+        <%= skill.pp_left %>/<%= skill.skill_datum.pp %>
       </div>
     </div>
   <% end %>

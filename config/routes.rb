@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
+  post 'battles/get_finished'
+
   get 'battles/lose'
-  
+
   get 'battles/finished'
 
   post 'battles/skill_update/:id' => 'battles#skill_update', as: 'battles_skill_update'
