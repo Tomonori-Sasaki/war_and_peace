@@ -28,7 +28,8 @@ class BattlesController < ApplicationController
       opponent_monster.save
 
       if opponent_monster.hp_left == 0
-        flash[:notice] = "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{my_monster.name}は#{opponent_monster.name}を倒した！"
+        flash[:notice] =
+        "#{my_monster.name}の#{selected_skill.skill_datum.name}！ #{my_monster.name}は#{opponent_monster.name}を倒した！ #{my_monster.name}は#{(exp_by_one_array[opponent_monster.level - 1]/5.0).round}経験値、#{@current_user.name}は#{(exp_by_one_array[opponent_monster.level - 1]/15.0).ceil}経験値を手に入れた。"
         @current_user.exp += (exp_by_one_array[opponent_monster.level - 1]/15.0).ceil
         my_monster.exp += (exp_by_one_array[opponent_monster.level - 1]/5.0).round
         trainer_level_judge(@current_user)
@@ -208,7 +209,7 @@ class BattlesController < ApplicationController
   end
 
   def trainer_level_judge(object)
-    while object.exp > level_up_exp_array[object.level-1] do
+    while object.exp >= level_up_exp_array[object.level-1].to_i do
       object.level += 1
       flash[:notice] = "#{object.name}のレベルがLv.#{object.level}に上がった！"
     end
@@ -216,7 +217,7 @@ class BattlesController < ApplicationController
   end
 
   def monster_level_judge(object)
-    while object.exp > level_up_exp_array[object.level-1] do
+    while object.exp >= level_up_exp_array[object.level-1].to_i do
       object.level += 1
       object.hp += object.hp_add
       object.hp_left = object.hp

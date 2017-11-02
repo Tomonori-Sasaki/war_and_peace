@@ -30,6 +30,8 @@
       </div>
     </div>
   <% end %>
+<% else %>
+  <h3>本日のイベントは終了しました。</h3>
 <% end %>
 
 
@@ -41,5 +43,9 @@
     $(this).css('background', '#F5F5F5');
   }, function(){
     $(this).css('background', '');
+  });
+  $('.posts-index-item').on('click',function(){
+    <% @current_user.last_event_at = Time.now %>
+    <% @current_user.save %>
   });
 </script>
