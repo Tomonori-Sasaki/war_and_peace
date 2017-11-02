@@ -11,6 +11,15 @@ Rails.application.routes.draw do
   get 'battles/show/:my_id/:opponent_id' => 'battles#show', as: 'battles_show'
 
   resources :skill_data
+
+  post 'users/monster_having/:id' => 'users#monster_having', as: 'users_monster_having'
+
+  post 'users/monster_first/:id' => 'users#monster_first', as: 'users_monster_first'
+
+  post 'users/monster_have/:id' => 'users#monster_have', as: 'users_monster_have'
+
+  delete 'users/monster_destroy/:id' => 'users#monster_destroy', as: 'users_monster_destroy'
+
   get 'users/loginform'
 
   post 'users/login'

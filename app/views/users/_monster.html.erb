@@ -29,6 +29,12 @@
       <div class="post-left-for-monster">
         <%= image_tag(monster_data.monster_datum.image_name) %>
       </div>
+      <div class="monster-change-btn">
+        <%= link_to '手持ち', users_monster_having_path(monster_data.id), method: :post, remote: true, class: 'btn btn-primary btn-xs monster-delete-btn' %>
+        <%= link_to '先頭', users_monster_first_path(monster_data.id), method: :post, remote: true, class: 'btn btn-success btn-xs monster-delete-btn' %>
+        <%= link_to '外す', users_monster_have_path(monster_data.id), method: :post, remote: true, class: 'btn btn-warning btn-xs monster-delete-btn' %>
+        <%= link_to '捨てる', users_monster_destroy_path(monster_data.id), method: :delete, remote: true, data: {confirm: "#{monster_data.name}とお別れしますか？"}, class: 'btn btn-danger btn-xs monster-delete-btn' %>
+      </div>
     </div>
   <% end %>
 <% end %>

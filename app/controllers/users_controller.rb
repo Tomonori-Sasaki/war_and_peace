@@ -66,6 +66,46 @@ class UsersController < ApplicationController
     redirect_to("/")
   end
 
+  def monster_having
+    new_having_monster = MonsterDetail.find(params[:id].to_i)
+    if MonsterDetail.where(user_id: @current_user.id, having_flag: 1).count >= 6
+      flash[:notice] = '手持ちモンスターは6匹までです。'
+    else
+      new_having_monster.having_flag = 1
+      new_having_monster.save
+    end
+    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC").order("updated_at DESC")
+  end
+
+  def monster_first
+    first_monster = MonsterDetail.find(params[:id].to_i)
+    first_monster.update(updated_at: Time.now)
+    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC").order("updated_at DESC")
+  end
+
+  def monster_have
+    new_have_monster = MonsterDetail.find(params[:id].to_i)
+    if MonsterDetail.where(user_id: @current_user.id, having_flag: 1).count <= 1
+      flash[:notice] = '手持ちモンスターは1匹以上必要です。'
+    else
+      new_have_monster.having_flag = 0
+      new_have_monster.save
+    end
+    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC").order("updated_at DESC")
+  end
+
+  def monster_destroy
+    destroyed_monster = MonsterDetail.find(params[:id].to_i)
+    if MonsterDetail.where(user_id: @current_user.id, having_flag: 1).count <= 1 && destroyed_monster.having_flag == 1
+      flash[:notice] = '手持ちモンスターは1匹以上必要です。'
+    else
+      destroyed_monster.having_flag = 0
+      destroyed_monster.have_flag = 0
+      destroyed_monster.save
+    end
+    @monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).order("having_flag DESC").order("updated_at DESC")
+  end
+
   def mypage
     # ずかん
     @zukan = MonsterDatum.all
