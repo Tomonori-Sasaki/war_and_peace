@@ -204,6 +204,9 @@ class UsersController < ApplicationController
   end
 
   def communication
+    if params[:user]
+      @searched_user = User.find(params[:user][:id].to_i)
+    end
   end
 
   def settings
