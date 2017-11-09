@@ -206,7 +206,11 @@ class UsersController < ApplicationController
   def communication
     @user = User.new
     if params[:user]
-      @searched_user = User.find(params[:user][:id].to_i)
+      if params[:user][:id].to_i == @current_user.id
+        flash[:notice] = "自分以外のトレーナーを選択してください。"
+      else
+        @searched_user = User.find(params[:user][:id].to_i)
+      end
     end
     @requested_monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).reject{|monster| monster.exchange == nil}
   end
