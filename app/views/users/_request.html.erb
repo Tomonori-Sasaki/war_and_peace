@@ -1,0 +1,41 @@
+<% unless @requested_monster.blank? %>
+  <% @requested_monster.each do |monster| %>
+    <% if monster.have_flag == 1 %>
+      <% monster.exchange.chars.each do |char| %>
+        <h3>From: <%= User.find(char.to_i).name %> (ID: <%= char.to_i %>)</h3>
+          <div class="posts-index-item">
+            <div class="monster-ball-icon-for-monster">
+              <% unless monster.monster_datum.monster_detail.where(user_id: @current_user.id, had_flag: 1).empty? %>
+                <%= image_tag('standard_ball.png') %>
+              <% else %>
+                <p>  </p>
+              <% end %>
+            </div>
+            <div class="monster-detail-right">
+              <div class="level-name" style="width: 80%;">
+                <div class="monster-detail-level">
+                  Lv.<%= monster.level %>
+                </div>
+                <div class="monster-detail-name">
+                  <%= monster.name %>
+                </div>
+              </div>
+              <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+                <div class="progress">
+                  <% hp_ratio = (monster.hp_left/monster.hp.to_f)*100 %>
+                  <div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
+                  </div>
+                </div>
+                <p>HP: <%= monster.hp_left %>/<%= monster.hp %></p>
+              </div>
+            </div>
+            <div class="post-left-for-monster">
+              <%= image_tag(monster.monster_datum.image_name) %>
+            </div>
+          </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+　<h3>まだ誰からも交換リクエストが届いておりません。</h3>
+<% end %>

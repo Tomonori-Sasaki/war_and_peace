@@ -4,6 +4,9 @@ class BattlesController < ApplicationController
   def show
     @my_monster = MonsterDetail.find(params[:my_id].to_i)
     @opponent_monster = MonsterDetail.find(params[:opponent_id].to_i)
+    @opponent_monster.user_id = @current_user.id
+    @opponent_monster.seen_flag = 1
+    @opponent_monster.save
     @my_monster_skills = @my_monster.skill_detail
     @my_having_monsters = MonsterDetail.where(user_id: @current_user.id, having_flag: 1).order("updated_at DESC").reject {|monster| monster == @my_monster }
   end
@@ -71,8 +74,13 @@ class BattlesController < ApplicationController
     end
     if capture_rate > capture_standard
       opponent_monster.user_id = @current_user.id
+      opponent_monster.having_flag = 1
+      opponent_monster.have_flag = 1
+      opponent_monster.had_flag = 1
       if MonsterDetail.where(user_id: @current_user.id, having_flag: 1).order("created_at DESC").count >= 6
         opponent_monster.having_flag = 0
+      else
+        
       end
       opponent_monster.save
       flash[:notice] = "#{opponent_monster.name}の捕獲に成功した！"

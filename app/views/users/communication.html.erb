@@ -4,15 +4,21 @@
     <ul class="nav nav-tabs">
     	<li class="active"><a href="#sampleContentA" data-toggle="tab">交換</a></li>
     	<li><a href="#sampleContentB" data-toggle="tab">対戦</a></li>
+      <li><a href="#sampleContentC" data-toggle="tab">リクエスト</a></li>
     </ul>
 
     <!-- タブ内容 -->
     <div class="tab-content">
     	<div class="tab-pane active" id="sampleContentA">
-    		<%= render 'koukan' %>
+        <div id="koukan">
+          <%= render 'koukan' %>
+        </div>
     	</div>
     	<div class="tab-pane" id="sampleContentB">
     		<%= render 'taisen' %>
+    	</div>
+      <div class="tab-pane" id="sampleContentC">
+    		<%= render 'request' %>
     	</div>
     </div>
   </div>

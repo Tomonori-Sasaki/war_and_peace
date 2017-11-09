@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :skill_data
 
+  post 'users/exchange/:id' => 'users#exchange', as: 'users_exchange'
+
   post 'users/monster_having/:id' => 'users#monster_having', as: 'users_monster_having'
 
   post 'users/monster_first/:id' => 'users#monster_first', as: 'users_monster_first'
