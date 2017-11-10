@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   resources :skill_data
 
+  get 'users/request_approval/:monster_id/:user_id' => 'users#request_approval', as: 'users_request_approval'
+
+  delete 'users/request_rejection/:monster_id/:user_id' => 'users#request_rejection', as: 'users_request_rejection'
+
   post 'users/exchange/:id' => 'users#exchange', as: 'users_exchange'
 
   post 'users/monster_having/:id' => 'users#monster_having', as: 'users_monster_having'

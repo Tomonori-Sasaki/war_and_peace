@@ -228,6 +228,21 @@ class UsersController < ApplicationController
     redirect_to(users_communication_path)
   end
 
+  def request_approval
+    @requested_monster = MonsterDetail.find(params[:monster_id].to_i)
+    @request_user = User.find(params[:user_id].to_i)
+    @request_user_monsters = MonsterDetail.where(user_id: @request_user, have_flag: 1)
+  end
+
+  def request_rejection
+    requested_monster = MonsterDetail.find(params[:monster_id].to_i)
+    request_user = User.find(params[:user_id].to_i)
+    requested_monster.exchange.delete!("#{request_user.id}")
+    requested_monster.save
+    flash[:notice] = "#{request_user.name}さんからの#{requested_monster.name}へのリクエストを拒否しました。"
+    @requested_monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).reject{|monster| monster.exchange == nil}
+  end
+
   def settings
   end
 

@@ -32,6 +32,10 @@
             <div class="post-left-for-monster">
               <%= image_tag(monster.monster_datum.image_name) %>
             </div>
+            <div class="monster-change-btn">
+              <%= link_to '承認', users_request_approval_path(monster.id, char.to_i), class: 'btn btn-primary btn-xs monster-delete-btn' %>
+              <%= link_to '拒否', users_request_rejection_path(monster.id, char.to_i), method: :delete, remote: true, data: {confirm: "リクエストを拒否しますか？"}, class: 'btn btn-danger btn-xs monster-delete-btn' %>
+            </div>
           </div>
       <% end %>
     <% end %>
