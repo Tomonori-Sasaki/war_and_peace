@@ -13,14 +13,26 @@
           ID:<%= monster_data.id %>
         </div>
         <div class="post-name">
-          <%= monster_data.name %>
+          <% unless monster_data.monster_detail.where(user_id: @current_user.id, seen_flag: 1).empty? %>
+            <%= monster_data.name %>
+          <% else %>
+            <p>ーーーーー</p>
+          <% end %>
         </div>
         <div class="post-type">
-          <%= monster_data.type %>
+          <% unless monster_data.monster_detail.where(user_id: @current_user.id, seen_flag: 1).empty? %>
+            <%= monster_data.type %>
+          <% else %>
+            <p>ー</p>
+          <% end %>
         </div>
       </div>
       <div class="post-left">
-        <%= image_tag(monster_data.image_name) %>
+        <% unless monster_data.monster_detail.where(user_id: @current_user.id, seen_flag: 1).empty? %>
+          <%= image_tag(monster_data.image_name) %>
+        <% else %>
+          <p> </p>
+        <% end %>
       </div>
     </div>
   <% end %>

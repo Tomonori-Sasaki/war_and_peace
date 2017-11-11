@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023212731) do
+ActiveRecord::Schema.define(version: 20171109065743) do
 
   create_table "monster_data", force: :cascade do |t|
     t.string "name"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20171023212731) do
     t.integer "seen_flag"
     t.integer "monster_datum_id"
     t.integer "hp_left"
+    t.string "exchange"
   end
 
   create_table "skill_data", force: :cascade do |t|

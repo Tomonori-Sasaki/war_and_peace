@@ -1,0 +1,74 @@
+<div class="main">
+  <div class="centering">
+    <h3>あなたが交換したいモンスター</h3>
+    <div class="posts-index-item">
+      <div class="monster-ball-icon-for-monster">
+        <%= image_tag('standard_ball.png') %>
+      </div>
+      <div class="monster-detail-right">
+        <div class="level-name" style="width: 80%;">
+          <div class="monster-detail-level">
+            Lv.<%= @requested_monster.level %>
+          </div>
+          <div class="monster-detail-name">
+            <%= @requested_monster.name %>
+          </div>
+        </div>
+        <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+          <div class="progress">
+            <% hp_ratio = (@requested_monster.hp_left/@requested_monster.hp.to_f)*100 %>
+            <div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
+            </div>
+          </div>
+          <p>HP: <%= @requested_monster.hp_left %>/<%= @requested_monster.hp %></p>
+        </div>
+      </div>
+      <div class="post-left-for-monster">
+        <%= image_tag(@requested_monster.monster_datum.image_name) %>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 50px;"><%= @request_user.name %>さんの手持ちモンスター</h3>
+    <% @request_user_monsters.each do |monster| %>
+      <div class="posts-index-item">
+        <div class="monster-ball-icon-for-monster">
+          <% unless monster.monster_datum.monster_detail.where(user_id: @current_user.id, had_flag: 1).empty? %>
+            <%= image_tag('standard_ball.png') %>
+          <% else %>
+            <p>  </p>
+          <% end %>
+        </div>
+        <div class="monster-detail-right">
+          <div class="level-name" style="width: 80%;">
+            <div class="monster-detail-level">
+              Lv.<%= monster.level %>
+            </div>
+            <div class="monster-detail-name">
+              <%= monster.name %>
+            </div>
+          </div>
+          <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+            <div class="progress">
+              <% hp_ratio = (monster.hp_left/monster.hp.to_f)*100 %>
+              <div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
+              </div>
+            </div>
+            <p>HP: <%= monster.hp_left %>/<%= monster.hp %></p>
+          </div>
+        </div>
+        <div class="post-left-for-monster">
+          <%= image_tag(monster.monster_datum.image_name) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.posts-index-item').css('background', '#FFFFFF');
+  $('.posts-index-item').hover(function(){
+    $(this).css('background', '#F5F5F5');
+  }, function(){
+    $(this).css('background', '');
+  });
+</script>

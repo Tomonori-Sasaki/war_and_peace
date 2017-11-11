@@ -1,0 +1,56 @@
+<%= form_for(@user, :url => {:controller => :users, :action => :communication}, method: :get, data: { remote: true }) do |f| %>
+  <div class="form-group">
+      <label>交換したい相手のトレーナーIDを入力してください</label>
+      <%= f.number_field :id, id: "id-field", class: "form-control", value: 1, min: 1, max: User.all.count, style: "width: 300px; margin: auto;" %>
+  </div>
+  <%= f.submit "検索", class: "btn btn-default", style: "margin-bottom: 20px;" %>
+<% end %>
+
+<% if @searched_user %>
+  <h3><%= @searched_user.name %>さんの手持ちモンスター</h3>
+  <% @searched_user.monster_detail.each do |monster| %>
+    <% if monster.have_flag == 1 %>
+      <%= link_to(users_exchange_path(monster.id), method: :post, data: {confirm: "#{@searched_user.name}さんの#{monster.name}に対して交換リクエストを申請しますか？"}) do %>
+        <div class="posts-index-item">
+          <div class="monster-ball-icon-for-monster">
+            <% unless monster.monster_datum.monster_detail.where(user_id: @current_user.id, had_flag: 1).empty? %>
+              <%= image_tag('standard_ball.png') %>
+            <% else %>
+              <p>  </p>
+            <% end %>
+          </div>
+          <div class="monster-detail-right">
+            <div class="level-name" style="width: 80%;">
+              <div class="monster-detail-level">
+                Lv.<%= monster.level %>
+              </div>
+              <div class="monster-detail-name">
+                <%= monster.name %>
+              </div>
+            </div>
+            <div class="monster-detail-hp" style="width: 80%; margin-top: 10px;">
+              <div class="progress">
+                <% hp_ratio = (monster.hp_left/monster.hp.to_f)*100 %>
+                <div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
+                </div>
+              </div>
+              <p>HP: <%= monster.hp_left %>/<%= monster.hp %></p>
+            </div>
+          </div>
+          <div class="post-left-for-monster">
+            <%= image_tag(monster.monster_datum.image_name) %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  $('.posts-index-item').css('background', '#FFFFFF');
+  $('.posts-index-item').hover(function(){
+    $(this).css('background', '#F5F5F5');
+  }, function(){
+    $(this).css('background', '');
+  });
+</script>

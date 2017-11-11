@@ -163,10 +163,10 @@ class UsersController < ApplicationController
         type: "#{monster.type}",
         user_id: 4,
         monster_datum_id: monster.id,
-        having_flag: 1,
-        have_flag: 1,
-        had_flag: 1,
-        seen_flag: 1)
+        having_flag: 0,
+        have_flag: 0,
+        had_flag: 0,
+        seen_flag: 0)
 
       SkillDatum.order("RANDOM()").limit(3).each do |skill_data|
         SkillDetail.create(monster_detail_id: monster.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
@@ -199,10 +199,10 @@ class UsersController < ApplicationController
         type: "#{@eventmonster.type}",
         user_id: 4,
         monster_datum_id: @eventmonster.id,
-        having_flag: 1,
-        have_flag: 1,
-        had_flag: 1,
-        seen_flag: 1)
+        having_flag: 0,
+        have_flag: 0,
+        had_flag: 0,
+        seen_flag: 0)
 
       SkillDatum.order("RANDOM()").limit(3).each do |skill_data|
         SkillDetail.create(monster_detail_id: @eventmonster.id, skill_datum_id: skill_data.id, pp_left: skill_data.pp)
@@ -214,6 +214,43 @@ class UsersController < ApplicationController
   end
 
   def communication
+    @user = User.new
+    if params[:user]
+      if params[:user][:id].to_i == @current_user.id
+        flash[:notice] = "自分以外のトレーナーを選択してください。"
+      else
+        @searched_user = User.find(params[:user][:id].to_i)
+      end
+    end
+    @requested_monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).reject{|monster| monster.exchange == nil}
+  end
+
+  def exchange
+    monster = MonsterDetail.find(params[:id].to_i)
+    if monster.exchange == nil
+      monster.exchange = "#{@current_user.id}"
+    elsif monster.exchange.include?("#{@current_user.id}")
+    else
+      monster.exchange += "#{@current_user.id}"
+    end
+    monster.save
+    flash[:notice] = "#{User.find(monster.user_id).name}さんにリクエストが送られました。"
+    redirect_to(users_communication_path)
+  end
+
+  def request_approval
+    @requested_monster = MonsterDetail.find(params[:monster_id].to_i)
+    @request_user = User.find(params[:user_id].to_i)
+    @request_user_monsters = MonsterDetail.where(user_id: @request_user, have_flag: 1)
+  end
+
+  def request_rejection
+    requested_monster = MonsterDetail.find(params[:monster_id].to_i)
+    request_user = User.find(params[:user_id].to_i)
+    requested_monster.exchange.delete!("#{request_user.id}")
+    requested_monster.save
+    flash[:notice] = "#{request_user.name}さんからの#{requested_monster.name}へのリクエストを拒否しました。"
+    @requested_monster = MonsterDetail.where(user_id: @current_user.id, have_flag: 1).reject{|monster| monster.exchange == nil}
   end
 
   def settings
