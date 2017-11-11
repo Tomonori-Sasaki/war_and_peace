@@ -1,0 +1,75 @@
+<div class="main">
+  <div class="centering">
+    <div class="monster-detail-box">
+      <div class="monster-details-left">
+        <div class="user-details-icon">
+          <%= image_tag("#{@monster.monster_datum.image_name}") %>
+        </div>
+      </div>
+      <div class="monster-details-right">
+        <div class="monster-details-name">
+          <h3><%= @monster.name %> Lv.<%= @monster.level %></h3>
+        </div>
+        <div class="monster-details-details">
+          <p>ATK: <%= @monster.attack %></p>
+          <p>DEF: <%= @monster.defence %></p>
+          <p>SPD: <%= @monster.speed %></p>
+          <p>TOTAL EXP : <%= @monster.exp %></p>
+        </div>
+      </div>
+    </div>
+    <div class="monster-detail-hp" style="width: 80%; margin-top: 30px;">
+      <div class="progress">
+        <% hp_ratio = (@monster.hp_left/@monster.hp.to_f)*100 %>
+        <div class="progress-bar <%= "progress-bar-warning" if hp_ratio >= 25 && hp_ratio < 50 %> <%= "progress-bar-danger" if hp_ratio < 25 %>" role="progressbar" style="width: <%= hp_ratio %>%;">
+        </div>
+      </div>
+      <p>HP: <%= @monster.hp_left %>/<%= @monster.hp %></p>
+    </div>
+    <div class="monster-detail-hp" style="width: 80%; margin-top: 10px; margin-bottom: 25px;">
+      <div class="progress">
+        <% exp_ratio = ((@monster.exp - @before_level_exp_sum)/@next_level_exp.to_f)*100 %>
+        <div class="progress-bar" role="progressbar" style="width: <%= exp_ratio %>%;">
+        </div>
+      </div>
+      <p><%= @monster.exp - @before_level_exp_sum %>/<%= @next_level_exp %> XP</p>
+    </div>
+
+    <div class="posts-index-item-index">
+      <div class="skill-name">
+        name
+      </div>
+      <div class="skill-type">
+        type
+      </div>
+      <div class="skill-power">
+        power
+      </div>
+      <div class="skill-accuracy">
+        accuracy
+      </div>
+      <div class="skill-pp">
+        pp
+      </div>
+    </div>
+    <% @monster.skill_detail.each do |skill| %>
+        <div class="posts-index-item">
+          <div class="skill-name">
+            <%= skill.skill_datum.name %>
+          </div>
+          <div class="skill-type">
+            <%= skill.skill_datum.type %>
+          </div>
+          <div class="skill-power">
+            <%= skill.skill_datum.power %>
+          </div>
+          <div class="skill-accuracy">
+            <%= skill.skill_datum.accuracy %>
+          </div>
+          <div class="skill-pp">
+            <%= skill.pp_left %>/<%= skill.skill_datum.pp %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

@@ -66,6 +66,16 @@ class UsersController < ApplicationController
     redirect_to("/")
   end
 
+  def monster_show
+    @monster = MonsterDetail.find(params[:id].to_i)
+    if @monster.level > 1
+      @before_level_exp_sum = level_up_exp_array[@monster.level-2].to_i
+    else
+      @before_level_exp_sum = 0
+    end
+    @next_level_exp = exp_by_one_array[@monster.level-1].to_i
+  end
+
   def monster_having
     new_having_monster = MonsterDetail.find(params[:id].to_i)
     if MonsterDetail.where(user_id: @current_user.id, having_flag: 1).count >= 6
@@ -216,8 +226,8 @@ class UsersController < ApplicationController
   end
 
   def exp_by_one_array
-    n = 5
-    array = [5]
+    n = 25
+    array = [25]
     for i in 1..1000 do
       n *= 1.1
       array << n

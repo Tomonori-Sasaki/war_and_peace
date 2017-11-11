@@ -1,5 +1,5 @@
 <% @monster.each do |monster_data| %>
-  <%= link_to(monster_datum_path(monster_data.monster_datum.id)) do %>
+  <%= link_to(users_monster_show_path(monster_data.id)) do %>
     <div class="posts-index-item">
       <div class="monster-ball-icon-for-monster">
         <% if monster_data.having_flag == 1 %>

@@ -7,7 +7,9 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<% if @current_user %>
+			<% if params[:controller] == "battles" %>
+				<%= link_to 'War & Peace', '', class: "navbar-brand" %>
+			<% elsif @current_user %>
 				<%= link_to 'War & Peace', users_mypage_path, class: "navbar-brand" %>
 			<% else %>
 				<%= link_to 'War & Peace', '/', class: "navbar-brand" %>
@@ -55,6 +57,7 @@
           <li><%= link_to 'Boss', users_boss_path %></li>
           <li><%= link_to 'Communication', users_communication_path %></li>
           <li class="active"><%= link_to 'Settings', users_settings_path %></li>
+				<% elsif params[:controller] == "battles" %>
 				<% elsif @current_user.id == 1 %>
           <li><%= link_to 'MonsterData', monster_data_path %></li>
 					<li><%= link_to 'SkillData', skill_data_path %></li>

@@ -191,8 +191,8 @@ class BattlesController < ApplicationController
   end
 
   def exp_by_one_array
-    n = 5
-    array = [5]
+    n = 25
+    array = [25]
     for i in 1..1000 do
       n *= 1.1
       array << n
